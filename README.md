@@ -9,4 +9,10 @@ Pet Adopt é uma aplicação que conecta pessoas interessadas em adotar animais 
 - 📧 Contato facilitado: Integração para entrar em contato diretamente com as instituições.
 - 📝 Cadastro de pets: Permite às instituições cadastrar novos animais disponíveis para adoção.
 
+## 🤝 Contribuições
+Contribuições são bem-vindas! Sinta-se à vontade para abrir issues ou enviar pull requests.
 
+## 📝 Licença
+Este projeto está sob a licença MIT.
+
+Desenvolvido por **Felipe Paulino dos Santos**
