@@ -1,16 +1,10 @@
-# pet_adopt
+## 🐾 Pet Adopt
+Pet Adopt é uma aplicação que conecta pessoas interessadas em adotar animais de estimação com instituições que disponibilizam pets para adoção. A plataforma simplifica o processo de busca e adoção, promovendo uma interação mais eficiente e colaborativa.
 
-A new Flutter project.
+## 🚀 Funcionalidades
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+-📋 Catálogo de pets: Lista de animais disponíveis para adoção com informações como nome, idade, raça, e uma breve descrição.
+-🔍 Filtros de busca: Pesquisa por espécie, porte, idade ou localização.
+-🖼️ Galeria de imagens: Fotos dos pets para facilitar a escolha do adotante.
+-📧 Contato facilitado: Integração para entrar em contato diretamente com as instituições.
+-📝 Cadastro de pets: Permite às instituições cadastrar novos animais disponíveis para adoção.
