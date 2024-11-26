@@ -15,48 +15,83 @@ class AddPetScreen extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: const Text("Adicionar Pet para adoção"),
+          title: const Text("Adicionar Pet para Adoção"),
+          backgroundColor: Colors.red,
           centerTitle: true,
-          automaticallyImplyLeading: false,
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back, color: Colors.white),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
         ),
+        backgroundColor: Colors.white,
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20.0),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.transparent,
-                  shadowColor: Colors.transparent,
-                  elevation: 0,
-                  padding: EdgeInsets.zero,
-                ),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: const [
-                    Icon(Icons.chevron_left, color: Colors.black),
-                    SizedBox(width: 5),
-                    Text(
-                      "Voltar",
-                      style: TextStyle(color: Colors.black),
+              const Spacer(flex: 2),
+
+              // Ícone e Header
+              Column(
+                children: [
+                  Icon(
+                    Icons.pets,
+                    size: 80,
+                    color: Colors.red,
+                  ),
+                  const SizedBox(height: 10),
+                  const Text(
+                    "Adicione um novo amigo!",
+                    style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
                     ),
-                  ],
-                ),
+                  ),
+                  const Text(
+                    "Preencha as informações abaixo.",
+                    style: TextStyle(fontSize: 16, color: Colors.grey),
+                  ),
+                ],
               ),
               const Spacer(flex: 2),
-              _buildTextField(nameController, "Nome do Pet"),
+
+              // Campos de entrada
+              _buildTextField(
+                nameController,
+                "Nome do Pet",
+                prefixIcon: Icons.edit,
+              ),
               const SizedBox(height: 15),
-              _buildTextField(ageController, "Idade do Pet", keyboardType: TextInputType.number),
+              _buildTextField(
+                ageController,
+                "Idade do Pet",
+                keyboardType: TextInputType.number,
+                prefixIcon: Icons.cake,
+              ),
               const SizedBox(height: 15),
-              _buildTextField(weightController, "Peso do Pet (kg)", keyboardType: TextInputType.number),
+              _buildTextField(
+                weightController,
+                "Peso do Pet (kg)",
+                keyboardType: TextInputType.number,
+                prefixIcon: Icons.line_weight,
+              ),
               const SizedBox(height: 15),
-              _buildTextField(colorController, "Cor do Pet"),
+              _buildTextField(
+                colorController,
+                "Cor do Pet",
+                prefixIcon: Icons.color_lens,
+              ),
               const SizedBox(height: 15),
-              _buildTextField(imageController, "URL da Imagem do Pet"),
-              const Spacer(flex: 3),
+              _buildTextField(
+                imageController,
+                "URL da Imagem do Pet",
+                prefixIcon: Icons.link,
+              ),
+              const Spacer(),
+
+              // Botão de Adicionar
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
@@ -70,7 +105,8 @@ class AddPetScreen extends StatelessWidget {
                         images: [imageController.text],
                       );
                       ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('Pet cadastrado com sucesso!')),
+                        const SnackBar(
+                            content: Text('Pet cadastrado com sucesso!')),
                       );
                       Navigator.of(context).pop();
                     } catch (e) {
@@ -80,7 +116,7 @@ class AddPetScreen extends StatelessWidget {
                     }
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.black,
+                    backgroundColor: Colors.red,
                     padding: const EdgeInsets.symmetric(vertical: 15),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30),
@@ -95,7 +131,7 @@ class AddPetScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              const Spacer(flex: 4),
+              const Spacer(flex: 3),
             ],
           ),
         ),
@@ -103,21 +139,23 @@ class AddPetScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildTextField(TextEditingController controller, String hint, {TextInputType? keyboardType}) {
-    return SizedBox(
-      width: double.infinity,
-      child: TextField(
-        controller: controller,
-        keyboardType: keyboardType,
-        decoration: InputDecoration(
-          hintText: hint,
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
-            borderSide: BorderSide(
-              color: Colors.black.withOpacity(0.2),
-              width: 1,
-            ),
-          ),
+  Widget _buildTextField(
+    TextEditingController controller,
+    String hint, {
+    TextInputType? keyboardType,
+    IconData? prefixIcon,
+  }) {
+    return TextField(
+      controller: controller,
+      keyboardType: keyboardType,
+      decoration: InputDecoration(
+        prefixIcon: Icon(prefixIcon, color: Colors.red),
+        hintText: hint,
+        filled: true,
+        fillColor: Colors.grey[200],
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(30),
+          borderSide: BorderSide.none,
         ),
       ),
     );

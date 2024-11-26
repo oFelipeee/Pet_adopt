@@ -50,14 +50,15 @@ class HomeScreen extends StatelessWidget {
               ),
               const SizedBox(height: 40),
 
-              // Imagem central do mascote
-              Image.asset(
-                "assets/images/HomeDog.png",
-                height: 300,
+              // Ícone grande de adoção de pets
+              Icon(
+                Icons.pets, // Ícone de pets
+                size: 120,
+                color: Colors.red,
               ),
               const SizedBox(height: 20),
 
-              // Título principal
+              // Título principal com slogan
               const Text(
                 "Pronto para fazer",
                 style: TextStyle(
@@ -76,7 +77,7 @@ class HomeScreen extends StatelessWidget {
               ),
               const SizedBox(height: 10),
 
-              // Texto informativo
+              // Texto informativo com cores de vermelho e preto
               const Text(
                 "Conecte-se com o pet perfeito para sua família.",
                 textAlign: TextAlign.center,

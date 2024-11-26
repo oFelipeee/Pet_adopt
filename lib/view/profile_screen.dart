@@ -37,42 +37,26 @@ class ProfileScreen extends StatelessWidget {
         appBar: AppBar(
           title: const Text("Perfil de Usuário"),
           centerTitle: true,
+          backgroundColor: Colors.red,
           automaticallyImplyLeading: false, // Remove o botão de voltar padrão
+          leading: IconButton(
+            icon: const Icon(Icons.home),
+            onPressed: () {
+              Navigator.pop(context); // Voltar à tela anterior
+            },
+          ),
         ),
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Botão Voltar estilizado
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.of(context).pop(); // Voltar à tela anterior
-                },
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: const [
-                    Icon(Icons.chevron_left, color: Colors.black),
-                    SizedBox(width: 5),
-                    Text(
-                      "Voltar",
-                      style: TextStyle(color: Colors.black),
-                    ),
-                  ],
-                ),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.transparent, // Fundo transparente
-                  shadowColor: Colors.transparent, // Remove a sombra
-                  elevation: 0, // Remove elevação
-                  padding: EdgeInsets.zero, // Remove padding
-                ),
-              ),
-              const Spacer(flex: 2),
-              // Nome do usuário
+              const SizedBox(height: 20),
+
+              // Nome do usuário e imagem de perfil
               Center(
                 child: Column(
                   children: [
-                    // Placeholder para imagem de perfil
                     const CircleAvatar(
                       radius: 50,
                       backgroundColor: Colors.black12,
@@ -84,7 +68,7 @@ class ProfileScreen extends StatelessWidget {
                     ),
                     const SizedBox(height: 15),
                     const Text(
-                      "Nome do Usuário",
+                      "Jurisvaldo dos Santos",
                       style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
@@ -92,7 +76,7 @@ class ProfileScreen extends StatelessWidget {
                     ),
                     const SizedBox(height: 10),
                     const Text(
-                      "emaildousuario@example.com",
+                      "oi@gmail.com",
                       style: TextStyle(
                         fontSize: 16,
                         color: Colors.black54,
@@ -102,6 +86,7 @@ class ProfileScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 30),
+
               // Descrição do usuário
               const Text(
                 "Descrição do Usuário",
@@ -119,6 +104,8 @@ class ProfileScreen extends StatelessWidget {
                 ),
               ),
               const Spacer(flex: 2),
+
+              // Pets cadastrados
               const Text(
                 "Pets Cadastrados",
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
