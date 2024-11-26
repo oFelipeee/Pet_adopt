@@ -9,17 +9,19 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        backgroundColor: const Color(0xFFFDF7F2), // Fundo claro e aconchegante
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+              // Botão "Pular" no canto superior direito
               Align(
                 alignment: Alignment.topRight,
                 child: ElevatedButton(
                   onPressed: () {
-                    Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) => const LoginScreen()));
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const LoginScreen()));
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.transparent,
@@ -28,31 +30,36 @@ class HomeScreen extends StatelessWidget {
                   ),
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
-                    children: [
+                    children: const [
                       Text(
-                        "Skip",
+                        "Pular",
                         style: TextStyle(
-                          color: Colors.black,
+                          color: Colors.red,
                           fontSize: 16,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
                       SizedBox(width: 5),
                       Icon(
                         Icons.chevron_right,
-                        color: Colors.black,
+                        color: Colors.red,
                       ),
                     ],
                   ),
                 ),
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 40),
+
+              // Imagem central do mascote
               Image.asset(
                 "assets/images/HomeDog.png",
-                height: 250,
+                height: 300,
               ),
               const SizedBox(height: 20),
+
+              // Título principal
               const Text(
-                "Ready to make a",
+                "Pronto para fazer",
                 style: TextStyle(
                   fontSize: 28,
                   fontWeight: FontWeight.bold,
@@ -60,7 +67,7 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
               const Text(
-                "new friend?",
+                "um novo amiguinho?",
                 style: TextStyle(
                   fontSize: 28,
                   fontWeight: FontWeight.bold,
@@ -68,16 +75,10 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 10),
+
+              // Texto informativo
               const Text(
-                "Select your profile and simply search",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 16,
-                  color: Colors.grey,
-                ),
-              ),
-              const Text(
-                "for pets near you.",
+                "Conecte-se com o pet perfeito para sua família.",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 16,
@@ -85,13 +86,16 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
               const Spacer(),
+
+              // Botão "Iniciar"
               ElevatedButton(
                 onPressed: () {
                   Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) => const CadastroScreen()));
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.black,
+                  backgroundColor:
+                      const Color.fromARGB(255, 244, 67, 54), // Vermelho pastel
                   padding: const EdgeInsets.symmetric(
                     horizontal: 50,
                     vertical: 20,
@@ -101,14 +105,15 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ),
                 child: const Text(
-                  "Get Started",
+                  "Iniciar",
                   style: TextStyle(
                     fontSize: 18,
+                    fontWeight: FontWeight.bold,
                     color: Colors.white,
                   ),
                 ),
               ),
-              const SizedBox(height: 30),
+              const SizedBox(height: 40),
             ],
           ),
         ),

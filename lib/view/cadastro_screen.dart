@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:pet_adopt/view/login_screen.dart';
 import '../controller/user_controller.dart';
 import '../model/user_model.dart';
+import 'home_screen.dart'; // Importa a HomeScreen
 
-class CadastroScreen extends StatefulWidget {  
+class CadastroScreen extends StatefulWidget {
   const CadastroScreen({super.key});
 
   @override
@@ -16,185 +17,207 @@ class _CadastroScreenState extends State<CadastroScreen> {
   final _user = UserModel();
 
   final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _confirmpasswordController = TextEditingController();
+  final TextEditingController _confirmpasswordController =
+      TextEditingController();
 
   Future<void> _registerUser() async {
-  if (_formKey.currentState!.validate()) {
-    _formKey.currentState!.save();
+    if (_formKey.currentState!.validate()) {
+      _formKey.currentState!.save();
 
-    print("Senha: '${_passwordController.text}'");
-    print("Confirmação de senha: '${_confirmpasswordController.text}'");
+      if (_passwordController.text.trim() !=
+          _confirmpasswordController.text.trim()) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text("As senhas não coincidem!")),
+        );
+        return;
+      }
 
-    if (_passwordController.text.trim() != _confirmpasswordController.text.trim()) {
+      _user.password = _passwordController.text;
+      _user.confirmpassword = _confirmpasswordController.text;
+
+      final message = await _userController.registerUser(_user);
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("As senhas não coincidem!")),
+        SnackBar(content: Text(message)),
       );
-      return;
-    }
 
-    _user.password = _passwordController.text;
-    _user.confirmpassword = _confirmpasswordController.text;
-
-    final message = await _userController.registerUser(_user);
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text(message)),
-    );
-
-    if (message == 'Usuário cadastrado com sucesso!') {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => LoginScreen()),  
-      );
+      if (message == 'Usuário cadastrado com sucesso!') {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const LoginScreen()),
+        );
+      }
     }
   }
-}
-
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: const Text("Cadastro de usuário"),
-          centerTitle: true,
-          automaticallyImplyLeading: false,
+          title: const Text("Cadastro"),
+          backgroundColor: Colors.red,
+          leading: IconButton(
+            icon: const Icon(Icons.home),
+            onPressed: () {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => const HomeScreen()),
+              );
+            },
+          ),
         ),
+        backgroundColor: Colors.white,
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20.0),
-          child: Form(
-            key: _formKey,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.transparent,
-                    shadowColor: Colors.transparent,
-                    elevation: 0,
-                    padding: EdgeInsets.zero,
+          child: Column(
+            children: [
+              const Spacer(flex: 2),
+              // Header com ícone ou imagem
+              Column(
+                children: [
+                  Icon(
+                    Icons.pets,
+                    size: 80,
+                    color: Colors.red,
                   ),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: const [
-                      Icon(Icons.chevron_left, color: Colors.black),
-                      SizedBox(width: 5),
-                      Text(
-                        "Voltar",
-                        style: TextStyle(color: Colors.black),
-                      ),
-                    ],
-                  ),
-                ),
-                const Spacer(flex: 4),
-                TextFormField(
-                  decoration: InputDecoration(
-                    hintText: "Digite seu nome",
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide(
-                        color: Colors.black.withOpacity(0.2),
-                        width: 1,
-                      ),
+                  const SizedBox(height: 10),
+                  const Text(
+                    "Crie sua conta no PetAdopt!",
+                    style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                      color: Color.fromARGB(255, 0, 0, 0),
                     ),
                   ),
-                  onSaved: (value) => _user.name = value!,
-                  validator: (value) => value!.isEmpty ? "Nome é obrigatório" : null,
-                ),
-                const SizedBox(height: 15),
-                TextFormField(
-                  decoration: InputDecoration(
-                    hintText: "Digite seu email",
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide(
-                        color: Colors.black.withOpacity(0.2),
-                        width: 1,
-                      ),
-                    ),
+                  const Text(
+                    "Preencha os dados abaixo para começar 🐾",
+                    style: TextStyle(fontSize: 16, color: Colors.grey),
                   ),
-                  onSaved: (value) => _user.email = value!,
-                  validator: (value) => value!.isEmpty ? "Email é obrigatório" : null,
-                ),
-                const SizedBox(height: 15),
-                TextFormField(
-                  decoration: InputDecoration(
-                    hintText: "Digite seu telefone",
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide(
-                        color: Colors.black.withOpacity(0.2),
-                        width: 1,
+                ],
+              ),
+              const Spacer(flex: 2),
+
+              // Formulário de Cadastro
+              Form(
+                key: _formKey,
+                child: Column(
+                  children: [
+                    TextFormField(
+                      decoration: InputDecoration(
+                        prefixIcon: const Icon(Icons.person,
+                            color: Color.fromARGB(255, 0, 0, 0)),
+                        hintText: "Digite seu nome",
+                        filled: true,
+                        fillColor: Colors.grey[200],
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(30),
+                          borderSide: BorderSide.none,
+                        ),
                       ),
+                      onSaved: (value) => _user.name = value!,
+                      validator: (value) =>
+                          value!.isEmpty ? "Nome é obrigatório" : null,
                     ),
-                  ),
-                  onSaved: (value) => _user.phone = value!,
-                  validator: (value) => value!.isEmpty ? "Telefone é obrigatório" : null,
-                ),
-                const SizedBox(height: 15),
-                TextFormField(
-                  obscureText: true,
-                  controller: _passwordController,
-                  decoration: InputDecoration(
-                    hintText: "Digite sua senha",
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide(
-                        color: Colors.black.withOpacity(0.2),
-                        width: 1,
+                    const SizedBox(height: 20),
+                    TextFormField(
+                      decoration: InputDecoration(
+                        prefixIcon: const Icon(Icons.email,
+                            color: Color.fromARGB(255, 0, 0, 0)),
+                        hintText: "Digite seu email",
+                        filled: true,
+                        fillColor: Colors.grey[200],
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(30),
+                          borderSide: BorderSide.none,
+                        ),
                       ),
+                      onSaved: (value) => _user.email = value!,
+                      validator: (value) =>
+                          value!.isEmpty ? "Email é obrigatório" : null,
                     ),
-                  ),
-                  onSaved: (value) => _user.password = value!,
-                  validator: (value) => value!.isEmpty ? "Senha é obrigatória" : null,
-                ),
-                const SizedBox(height: 15),
-                TextFormField(
-                  obscureText: true,
-                  controller: _confirmpasswordController,
-                  decoration: InputDecoration(
-                    hintText: "Confirme sua senha",
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide(
-                        color: Colors.black.withOpacity(0.2),
-                        width: 1,
+                    const SizedBox(height: 20),
+                    TextFormField(
+                      decoration: InputDecoration(
+                        prefixIcon: const Icon(Icons.phone,
+                            color: Color.fromARGB(255, 0, 0, 0)),
+                        hintText: "Digite seu telefone",
+                        filled: true,
+                        fillColor: Colors.grey[200],
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(30),
+                          borderSide: BorderSide.none,
+                        ),
                       ),
+                      onSaved: (value) => _user.phone = value!,
+                      validator: (value) =>
+                          value!.isEmpty ? "Telefone é obrigatório" : null,
                     ),
-                  ),
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return "Confirmação de senha é obrigatória";
-                    }
-                    if (value.trim() != _passwordController.text.trim()) {
-                      return "As senhas não coincidem";
-                    }
-                    return null;
-                  },
-                ),
-                const Spacer(flex: 1),
-                Center(
-                  child: ElevatedButton(
-                    onPressed: _registerUser,
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.black,
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 30, vertical: 15),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30),
+                    const SizedBox(height: 20),
+                    TextFormField(
+                      controller: _passwordController,
+                      obscureText: true,
+                      decoration: InputDecoration(
+                        prefixIcon: const Icon(Icons.lock,
+                            color: Color.fromARGB(255, 0, 0, 0)),
+                        hintText: "Digite sua senha",
+                        filled: true,
+                        fillColor: Colors.grey[200],
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(30),
+                          borderSide: BorderSide.none,
+                        ),
                       ),
+                      validator: (value) =>
+                          value!.isEmpty ? "Senha é obrigatória" : null,
                     ),
-                    child: const Text(
-                      "Cadastrar",
-                      style: TextStyle(fontSize: 18, color: Colors.white),
+                    const SizedBox(height: 20),
+                    TextFormField(
+                      controller: _confirmpasswordController,
+                      obscureText: true,
+                      decoration: InputDecoration(
+                        prefixIcon: const Icon(Icons.lock,
+                            color: Color.fromARGB(255, 0, 0, 0)),
+                        hintText: "Confirme sua senha",
+                        filled: true,
+                        fillColor: Colors.grey[200],
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(30),
+                          borderSide: BorderSide.none,
+                        ),
+                      ),
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return "Confirmação de senha é obrigatória";
+                        }
+                        if (value.trim() != _passwordController.text.trim()) {
+                          return "As senhas não coincidem";
+                        }
+                        return null;
+                      },
                     ),
+                  ],
+                ),
+              ),
+              const Spacer(),
+
+              // Botão de Cadastro
+              ElevatedButton(
+                onPressed: _registerUser,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.red,
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30),
                   ),
                 ),
-                const Spacer(flex: 4),
-              ],
-            ),
+                child: const Text(
+                  "Cadastrar",
+                  style: TextStyle(fontSize: 18, color: Colors.white),
+                ),
+              ),
+              const Spacer(flex: 3),
+            ],
           ),
         ),
       ),

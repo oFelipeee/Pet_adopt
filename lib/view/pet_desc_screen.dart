@@ -115,7 +115,7 @@ class PetDescScreen extends StatelessWidget {
                     width: 90,
                     padding: const EdgeInsets.all(10),
                     decoration: BoxDecoration(
-                      color: Colors.lightBlue.shade50,
+                      color: const Color.fromARGB(255, 254, 225, 225),
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: const Column(
@@ -190,7 +190,7 @@ class PetDescScreen extends StatelessWidget {
                       // Ação de favoritar
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.black,
+                      backgroundColor: Colors.red,
                       padding: const EdgeInsets.all(10),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30),
