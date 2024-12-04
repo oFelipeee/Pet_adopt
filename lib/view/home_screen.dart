@@ -24,9 +24,16 @@ class HomeScreen extends StatelessWidget {
                         builder: (context) => const LoginScreen()));
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.transparent,
-                    shadowColor: Colors.transparent,
-                    elevation: 0,
+                    backgroundColor: const Color.fromARGB(
+                        255, 244, 67, 54), // Vermelho pastel
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 20,
+                      vertical: 10,
+                    ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                    elevation: 2,
                   ),
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
@@ -34,7 +41,7 @@ class HomeScreen extends StatelessWidget {
                       Text(
                         "Pular",
                         style: TextStyle(
-                          color: Colors.red,
+                          color: Colors.white,
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
                         ),
@@ -42,7 +49,7 @@ class HomeScreen extends StatelessWidget {
                       SizedBox(width: 5),
                       Icon(
                         Icons.chevron_right,
-                        color: Colors.red,
+                        color: Colors.white,
                       ),
                     ],
                   ),
