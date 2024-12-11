@@ -1,4 +1,5 @@
 import 'dart:convert';
+// import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import '../model/pet_model.dart';
@@ -35,6 +36,10 @@ class PetController {
     required double weight,
     required String color,
     required List<String> images,
+    required String gender,
+    required String category,
+    required String breed,
+    required String story,
   }) async {
     final token = await _getToken();
     if (token == null) {
@@ -87,6 +92,10 @@ class PetController {
     required int age,
     required double weight,
     required String color,
+    required String gender,
+    required String category,
+    required String breed,
+    required String story,
     required List<String> images,
   }) async {
     final token = await _getToken();
@@ -106,6 +115,10 @@ class PetController {
         'weight': weight,
         'color': color,
         'images': images,
+        'gender': gender,
+        'category': category,
+        'breed': breed,
+        'story': story,
       }),
     );
 
