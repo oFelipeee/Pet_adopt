@@ -103,7 +103,7 @@ class _CadastroScreenState extends State<CadastroScreen> {
                 child: Column(
                   children: [
                     TextFormField(
-                      decoration: InputDecoration(
+                      decoration: InputDecoration(git init 
                         prefixIcon: const Icon(Icons.person,
                             color: Color.fromARGB(255, 0, 0, 0)),
                         hintText: "Digite seu nome",
